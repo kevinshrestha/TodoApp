@@ -1,5 +1,17 @@
 // listening for click event from browser
 document.addEventListener("click", function(e) {
+  if (e.target.classList.contains("delete-me")) {
+    if (confirm("Do you really want to delete this item permanetly?")) {
+      axios.post('/delete-item', {id: e.target.getAttribute("data-id")}).then(function() {
+        // targetting the editted element
+        // parentElement is targetting item-text in server.js
+        // remove() deletes list item
+        e.target.parentElement.parentElement.remove()
+      }).catch(function () {
+        console.log("Try again later")
+      })      
+    }
+  }
   // if the element that was clicked contains "edit-me" will run this conditnion
   if (e.target.classList.contains("edit-me")) {
     // web browser function
